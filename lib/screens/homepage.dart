@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodorder/widgets/bottomnavicon.dart';
 import 'package:foodorder/widgets/commons.dart';
 import 'package:foodorder/widgets/customtext.dart';
 import 'package:foodorder/widgets/featureproducts.dart';
@@ -118,30 +119,69 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            FeaturedProducts()
+            FeaturedProducts(),
+            Padding(padding: EdgeInsets.all(4)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.all(0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: FlutterLogo(
+                          size: 400,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.all(4)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.favorite,
+                          color: red,
+                        ),
+                      ),
+                      Container(
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                            color: white,
+                            borderRadius: BorderRadius.circular(5)),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
       bottomNavigationBar: Container(
+        height: 70,
         color: white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FlutterLogo(),
+            BottomNavIcon(
+              image: 'null',
+              name: 'Home',
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FlutterLogo(),
+            // BottomNavIcon(
+            //   image: 'null',
+            //   name: 'Near by',
+            // ),
+            BottomNavIcon(
+              image: 'null',
+              name: 'Cart',
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FlutterLogo(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FlutterLogo(),
+            BottomNavIcon(
+              image: 'null',
+              name: 'Account',
             ),
           ],
         ),
