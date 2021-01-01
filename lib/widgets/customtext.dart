@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodorder/widgets/commons.dart';
+import 'package:foodorder/helpers/stylecolor.dart';
 
 class CustomText extends StatelessWidget {
   final String text;

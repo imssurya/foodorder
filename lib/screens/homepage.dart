@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodorder/widgets/bottomnavicon.dart';
-import 'package:foodorder/widgets/commons.dart';
+import 'package:foodorder/helpers/stylecolor.dart';
 import 'package:foodorder/widgets/customtext.dart';
 import 'package:foodorder/widgets/featureproducts.dart';
 
