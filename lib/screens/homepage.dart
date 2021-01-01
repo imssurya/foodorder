@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodorder/widgets/commons.dart';
 import 'package:foodorder/widgets/customtext.dart';
+import 'package:foodorder/widgets/featureproducts.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -116,7 +117,32 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-            )
+            ),
+            FeaturedProducts()
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FlutterLogo(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FlutterLogo(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FlutterLogo(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FlutterLogo(),
+            ),
           ],
         ),
       ),
