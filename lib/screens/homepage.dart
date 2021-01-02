@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foodorder/helpers/changescreen.dart';
+import 'package:foodorder/screens/cartpage.dart';
 import 'package:foodorder/widgets/bottomnavicon.dart';
 import 'package:foodorder/helpers/stylecolor.dart';
 import 'package:foodorder/widgets/customtext.dart';
@@ -170,18 +172,23 @@ class _HomePageState extends State<HomePage> {
             BottomNavIcon(
               image: 'null',
               name: 'Home',
+              onTap: () {},
             ),
-            // BottomNavIcon(
-            //   image: 'null',
-            //   name: 'Near by',
-            // ),
+            BottomNavIcon(
+              image: 'null',
+              name: 'Near by',
+            ),
             BottomNavIcon(
               image: 'null',
               name: 'Cart',
+              onTap: () {
+                changeScreen(context, CartPage());
+              },
             ),
             BottomNavIcon(
               image: 'null',
               name: 'Account',
+              onTap: () {},
             ),
           ],
         ),

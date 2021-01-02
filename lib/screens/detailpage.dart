@@ -102,9 +102,24 @@ class _DetailPageState extends State<DetailPage> {
                   Positioned(
                     right: 14,
                     bottom: 14,
-                    child: IconButton(
-                      icon: Icon(Icons.favorite),
-                      onPressed: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: white,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                                color: grey,
+                                offset: Offset(2, 3),
+                                blurRadius: 3)
+                          ]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.favorite,
+                          color: red,
+                          size: 22,
+                        ),
+                      ),
                     ),
                   ),
                   Align(
@@ -113,9 +128,60 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
             ),
-            Text(
-              widget.products.name,
-              style: TextStyle(color: black),
+            CustomText(
+              text: widget.products.name,
+              size: 24,
+              weight: FontWeight.bold,
+            ),
+            CustomText(
+              text: '\$' + widget.products.price.toString(),
+              size: 18,
+              color: red,
+              weight: FontWeight.bold,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.remove,
+                        size: 28,
+                      ),
+                      onPressed: () {}),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: red,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(28, 12, 24, 12),
+                      child: CustomText(
+                        text: 'Add To Bag',
+                        color: white,
+                        size: 24,
+                        weight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.add,
+                        size: 28,
+                        color: red,
+                      ),
+                      onPressed: () {}),
+                ),
+              ],
             ),
           ],
         ),

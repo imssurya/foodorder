@@ -4,18 +4,23 @@ import 'package:foodorder/widgets/customtext.dart';
 class BottomNavIcon extends StatelessWidget {
   final String image;
   final String name;
+  final Function onTap;
 
-  const BottomNavIcon({Key key, this.image, this.name}) : super(key: key);
+  const BottomNavIcon({Key key, this.image, this.name, this.onTap})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          FlutterLogo(),
-          SizedBox(height: 2.0),
-          CustomText(text: name)
-        ],
+      child: GestureDetector(
+        onTap: onTap ?? null,
+        child: Column(
+          children: <Widget>[
+            FlutterLogo(),
+            SizedBox(height: 2.0),
+            CustomText(text: name)
+          ],
+        ),
       ),
     );
   }
