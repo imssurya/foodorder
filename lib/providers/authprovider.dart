@@ -51,7 +51,9 @@ class AuthProvider with ChangeNotifier {
           Map<String, dynamic> values = {
             'name': userName.text,
             'email': email.text,
-            'id': user.user.uid
+            'id': user.user.uid,
+            'likedfood': [],
+            'likedrestaurant': []
           };
           _userServices.createUser(values);
         },
