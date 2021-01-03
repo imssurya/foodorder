@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 enum Status { Uninitialized, Unauthenticated, Authenticating, Authenticated }
 
-class AuthProvider with ChangeNotifier {
+class UserProvider with ChangeNotifier {
   auth.FirebaseAuth _auth;
   auth.User _user;
   Status _status = Status.Uninitialized;
@@ -23,7 +23,7 @@ class AuthProvider with ChangeNotifier {
   TextEditingController password = TextEditingController();
   TextEditingController userName = TextEditingController();
 
-  AuthProvider.initialize() : _auth = auth.FirebaseAuth.instance {
+  UserProvider.initialize() : _auth = auth.FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onStateChanged);
   }
 

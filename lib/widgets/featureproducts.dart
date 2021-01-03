@@ -5,22 +5,7 @@ import 'package:foodorder/helpers/stylecolor.dart';
 import 'package:foodorder/screens/detailpage.dart';
 import 'package:foodorder/widgets/customtext.dart';
 
-List<Products> productsList = [
-  Products(
-      name: 'Cereals',
-      price: 5.99,
-      rating: 4.2,
-      vendor: 'GoodFoos',
-      wishlist: false,
-      image: 'flutter logo'),
-  Products(
-      name: 'Taccos',
-      price: 5.99,
-      rating: 4.2,
-      vendor: 'GoodFoos',
-      wishlist: true,
-      image: 'flutter logo'),
-];
+List<ProductModel> productsList = [];
 
 class FeaturedProducts extends StatelessWidget {
   @override
@@ -29,7 +14,7 @@ class FeaturedProducts extends StatelessWidget {
       height: 240.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: productsList.length,
+        //  itemCount: productsList.length,
         itemBuilder: (_, index) {
           return Padding(
             padding: EdgeInsets.fromLTRB(12, 14, 16, 12),
@@ -38,8 +23,8 @@ class FeaturedProducts extends StatelessWidget {
                 changeScreen(
                   context,
                   DetailPage(
-                    products: productsList[index],
-                  ),
+                      //           products: productsList[index],
+                      ),
                 );
               },
               child: Container(
@@ -66,8 +51,8 @@ class FeaturedProducts extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(8.0),
                           child: CustomText(
-                            text: '${productsList[index].name}',
-                          ),
+                              //           text: '${productsList[index].name}',
+                              ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(8.0),
@@ -84,20 +69,20 @@ class FeaturedProducts extends StatelessWidget {
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(4),
-                              child: productsList[index].wishlist
-                                  ? Icon(
-                                      Icons.favorite,
-                                      color: red,
-                                      size: 18,
-                                    )
-                                  : Icon(
-                                      Icons.favorite_border,
-                                      color: red,
-                                      size: 18,
-                                    ),
+                              //            child: productsList[index].wishlist
+                              //               ? Icon(
+                              //                   Icons.favorite,
+                              //                    color: red,
+                              //                    size: 18,
+                              //                  )
+                              //                : Icon(
+                              //                   Icons.favorite_border,
+                              //                   color: red,
+                              //                   size: 18,
                             ),
                           ),
-                        )
+                        ),
+                        //)
                       ],
                     ),
                     Row(
@@ -108,7 +93,7 @@ class FeaturedProducts extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: CustomText(
-                                text: productsList[index].rating.toString(),
+                                //               text: productsList[index].rating.toString(),
                                 color: grey,
                                 size: 14,
                               ),

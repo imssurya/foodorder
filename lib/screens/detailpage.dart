@@ -5,7 +5,7 @@ import 'package:foodorder/helpers/stylecolor.dart';
 import 'package:foodorder/widgets/customtext.dart';
 
 class DetailPage extends StatefulWidget {
-  final Products products;
+  final ProductModel products;
 
   const DetailPage({Key key, @required this.products}) : super(key: key);
 

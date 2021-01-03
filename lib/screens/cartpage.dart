@@ -9,13 +9,13 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  Products product = Products(
-      name: 'Cereals',
-      price: 5.99,
-      rating: 4.2,
-      vendor: 'GoodFoos',
-      wishlist: false,
-      image: 'flutter logo');
+  // ProductModel product = ProductModel(
+  //     name: 'Cereals',
+  //     price: 5.99,
+  //     rating: 4.2,
+  //     vendor: 'GoodFoos',
+  //     wishlist: false,
+  //     image: 'flutter logo');
 
   @override
   Widget build(BuildContext context) {
@@ -108,14 +108,16 @@ class _CartPageState extends State<CartPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: product.name + '\n',
+//                                text: product.name + '\n',
+                                //  text: product.name + '\n',
+
                                 style: TextStyle(
                                     color: black,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                               TextSpan(
-                                text: '\$' + product.price.toString() + '\n',
+                                //text: '\$' + product.price.toString() + '\n',
                                 style: TextStyle(
                                     color: black,
                                     fontSize: 17,

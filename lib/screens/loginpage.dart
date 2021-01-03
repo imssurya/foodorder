@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodorder/helpers/changescreen.dart';
 import 'package:foodorder/helpers/stylecolor.dart';
-import 'package:foodorder/providers/authprovider.dart';
+import 'package:foodorder/providers/userprovider.dart';
 import 'package:foodorder/screens/homepage.dart';
 import 'package:foodorder/screens/registerpage.dart';
 import 'package:foodorder/widgets/customtext.dart';
@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
       key: _key,

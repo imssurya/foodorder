@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodorder/helpers/screencontroller.dart';
-import 'package:foodorder/providers/authprovider.dart';
+import 'package:foodorder/providers/userprovider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:foodorder/providers/categoryprovider.dart';
+import 'package:foodorder/providers/restaurantprovider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +12,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: AuthProvider.initialize())
+        ChangeNotifierProvider.value(value: UserProvider.initialize()),
+        ChangeNotifierProvider.value(value: CategoryProvider.initialize()),
+        ChangeNotifierProvider.value(value: RestaurantProvider.initialize()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

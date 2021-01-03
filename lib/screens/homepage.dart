@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:foodorder/helpers/changescreen.dart';
-import 'package:foodorder/providers/authprovider.dart';
+import 'package:foodorder/providers/userprovider.dart';
+import 'package:foodorder/providers/categoryprovider.dart';
+import 'package:foodorder/providers/restaurantprovider.dart';
 import 'package:foodorder/screens/cartpage.dart';
 import 'package:foodorder/widgets/bottomnavicon.dart';
 import 'package:foodorder/helpers/stylecolor.dart';
 import 'package:foodorder/widgets/customtext.dart';
 import 'package:foodorder/widgets/featureproducts.dart';
 import 'package:provider/provider.dart';
+import 'package:foodorder/widgets/categorypart.dart';
+import 'package:foodorder/widgets/restaurantpart.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,7 +20,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+    final categoryProvider = Provider.of<CategoryProvider>(context);
+    final restaurantProvider = Provider.of<RestaurantProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: white),
@@ -155,87 +162,65 @@ class _HomePageState extends State<HomePage> {
               height: 130.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: categoryProvider.categories.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                            color: white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: red,
-                                offset: Offset(2, 3),
-                                blurRadius: 12,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: FlutterLogo(
-                              size: 75,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        CustomText(
-                          text: 'Salad',
-                          size: 16,
-                          color: black,
-                        )
-                      ],
-                    ),
+                  return CategoryPart(
+                    category: categoryProvider.categories[index],
                   );
                 },
               ),
             ),
             FeaturedProducts(),
             Padding(padding: EdgeInsets.all(4)),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      //color: red,
-                      borderRadius: BorderRadius.circular(70),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: FlutterLogo(
-                          size: 400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.all(4)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.favorite,
-                          color: red,
-                        ),
-                      ),
-                      Container(
-                        width: 50.0,
-                        decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(5)),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
+            Column(
+              children: restaurantProvider.restaurants.map((item) {
+                return GestureDetector(
+                  onTap: () {},
+                  child: RestaurantPart(restaurant: item),
+                );
+              }).toList(),
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Stack(
+            //     children: <Widget>[
+            //       Container(
+            //         decoration: BoxDecoration(
+            //           //color: red,
+            //           borderRadius: BorderRadius.circular(70),
+            //         ),
+            //         child: Padding(
+            //           padding: EdgeInsets.all(0),
+            //           child: ClipRRect(
+            //             borderRadius: BorderRadius.circular(20),
+            //             child: FlutterLogo(
+            //               size: 400,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Padding(padding: EdgeInsets.all(4)),
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: <Widget>[
+            //           Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Icon(
+            //               Icons.favorite,
+            //               color: red,
+            //             ),
+            //           ),
+            //           Container(
+            //             width: 50.0,
+            //             decoration: BoxDecoration(
+            //                 color: white,
+            //                 borderRadius: BorderRadius.circular(5)),
+            //           )
+            //         ],
+            //       )
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),
@@ -275,11 +260,11 @@ class _HomePageState extends State<HomePage> {
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(color: black),
               accountName: CustomText(
-                  text: authProvider.userModel.name,
+                  text: userProvider.userModel.name,
                   color: white,
                   weight: FontWeight.bold),
               accountEmail:
-                  CustomText(text: authProvider.userModel.email, color: white),
+                  CustomText(text: userProvider.userModel.email, color: white),
             ),
             ListTile(
               onTap: () {},

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodorder/providers/authprovider.dart';
+import 'package:foodorder/providers/userprovider.dart';
 import 'package:foodorder/screens/homepage.dart';
 import 'package:foodorder/screens/loginpage.dart';
 import 'package:foodorder/widgets/loading.dart';
@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class ScreenController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthProvider>(context);
+    final user = Provider.of<UserProvider>(context);
     switch (user.status) {
       case Status.Uninitialized:
         return LoginPage();
