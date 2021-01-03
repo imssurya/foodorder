@@ -92,7 +92,7 @@ class RestaurantPart extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w300)),
                       TextSpan(
-                          text: "\$${restaurant.price} \n",
+                          text: "\$${restaurant.avgPrice} \n",
                           style: TextStyle(fontSize: 16)),
                     ], style: TextStyle(color: white)),
                   ),
@@ -127,10 +127,14 @@ class RestaurantPart extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
-                    child: Align(
-                  alignment: Alignment.center,
-                  child: Container(height: 120, child: Loading()),
-                )),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 120,
+                      child: Loading(),
+                    ),
+                  ),
+                ),
                 Center(
                   child: FadeInImage.memoryNetwork(
                       placeholder: kTransparentImage, image: restaurant.image),

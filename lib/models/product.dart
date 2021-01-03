@@ -14,24 +14,24 @@ class ProductModel {
 
   String _id;
   String _name;
-  String _restaurantId;
+  int _restaurantId;
   String _restaurant;
   String _category;
   String _image;
   double _price;
   double _rating;
   int _rates;
-  String _featured;
+  bool _featured;
 
   String get id => _id;
   String get name => _name;
-  String get restaurantId => _restaurantId;
+  int get restaurantId => _restaurantId;
   String get restaurant => _restaurant;
   String get category => _category;
   String get image => _image;
   double get price => _price;
   double get rating => _rating;
-  String get featured => _featured;
+  bool get featured => _featured;
   int get rates => _rates;
 
   ProductModel.fromSnapshot(DocumentSnapshot snapshot) {
@@ -41,8 +41,8 @@ class ProductModel {
     _restaurant = snapshot.data()[RESTAURANT];
     _category = snapshot.data()[CATEGORY];
     _image = snapshot.data()[IMAGE];
-    _price = snapshot.data()[PRICE];
-    _rating = snapshot.data()[RATING];
+    _price = snapshot.data()[PRICE].toDouble();
+    _rating = snapshot.data()[RATING].toDouble();
     _featured = snapshot.data()[FEATURED];
     _rates = snapshot.data()[RATES];
   }

@@ -22,10 +22,20 @@ class _DetailPageState extends State<DetailPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 350.0,
-              width: MediaQuery.of(context).size.width,
+              //width: MediaQuery.of(context).size.width,
+              height: 300,
               child: Stack(
                 children: <Widget>[
+                  Carousel(
+                    images: [
+                      FlutterLogo(),
+                    ],
+                    dotBgColor: white,
+                    dotColor: grey,
+                    dotIncreasedColor: red,
+                    dotIncreaseSize: 1.2,
+                    autoplay: false,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -35,7 +45,7 @@ class _DetailPageState extends State<DetailPage> {
                           color: black,
                         ),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.pop(context);
                         },
                       ),
                       Padding(
@@ -43,102 +53,72 @@ class _DetailPageState extends State<DetailPage> {
                         child: Stack(
                           children: <Widget>[
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Stack(
                                 children: <Widget>[
                                   FlutterLogo(),
-                                  Positioned(
-                                    right: 5,
-                                    bottom: 2,
-                                    top: 10.0,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: grey,
-                                            offset: Offset(2, 1),
-                                            blurRadius: 3,
-                                          ),
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 4.0,
-                                          right: 4.0,
-                                        ),
-                                        child: CustomText(
-                                          text: '2',
-                                          color: red,
-                                          size: 18,
-                                        ),
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
                             ),
+                            Positioned(
+                              right: 5,
+                              bottom: 0,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: grey,
+                                          offset: Offset(2, 1),
+                                          blurRadius: 3,
+                                        )
+                                      ]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4.0, right: 4.0),
+                                    child: CustomText(
+                                      text: "2",
+                                      color: red,
+                                      size: 18,
+                                      weight: FontWeight.bold,
+                                    ),
+                                  )),
+                            )
                           ],
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.shopping_bag),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
                     ],
-                  ),
-                  Carousel(
-                    images: [
-                      FlutterLogo(),
-                      FlutterLogo(),
-                    ],
-                    dotBgColor: white,
-                    dotColor: grey,
-                    dotIncreasedColor: red,
                   ),
                   Positioned(
-                    right: 14,
-                    bottom: 14,
+                    right: 20,
+                    bottom: 55,
                     child: Container(
                       decoration: BoxDecoration(
                           color: white,
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                                color: grey,
-                                offset: Offset(2, 3),
-                                blurRadius: 3)
+                              color: Colors.grey[400],
+                              offset: Offset(2, 1),
+                              blurRadius: 3,
+                            )
                           ]),
                       child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(
-                          Icons.favorite,
-                          color: red,
-                          size: 22,
-                        ),
+                        padding: const EdgeInsets.all(6),
+                        child: Icon(Icons.favorite, size: 22, color: red),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
                   )
                 ],
               ),
             ),
             CustomText(
-              text: widget.products.name,
-              size: 24,
-              weight: FontWeight.bold,
-            ),
+                text: widget.products.name, size: 26, weight: FontWeight.bold),
             CustomText(
-              text: '\$' + widget.products.price.toString(),
-              size: 18,
-              color: red,
-              weight: FontWeight.bold,
-            ),
+                text: "\₵" + widget.products.price.toString(),
+                size: 20,
+                weight: FontWeight.w400),
             SizedBox(
               height: 15,
             ),
@@ -150,7 +130,7 @@ class _DetailPageState extends State<DetailPage> {
                   child: IconButton(
                       icon: Icon(
                         Icons.remove,
-                        size: 28,
+                        size: 36,
                       ),
                       onPressed: () {}),
                 ),
@@ -161,12 +141,12 @@ class _DetailPageState extends State<DetailPage> {
                       color: red,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(28, 12, 24, 12),
+                      padding: const EdgeInsets.fromLTRB(28, 12, 28, 12),
                       child: CustomText(
-                        text: 'Add To Bag',
+                        text: "Add to Bag",
                         color: white,
                         size: 24,
-                        weight: FontWeight.bold,
+                        weight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -176,7 +156,7 @@ class _DetailPageState extends State<DetailPage> {
                   child: IconButton(
                       icon: Icon(
                         Icons.add,
-                        size: 28,
+                        size: 36,
                         color: red,
                       ),
                       onPressed: () {}),

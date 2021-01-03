@@ -2,148 +2,156 @@ import 'package:flutter/material.dart';
 import 'package:foodorder/helpers/changescreen.dart';
 import 'package:foodorder/models/product.dart';
 import 'package:foodorder/helpers/stylecolor.dart';
+import 'package:foodorder/providers/productprovider.dart';
+import 'package:foodorder/providers/userprovider.dart';
 import 'package:foodorder/screens/detailpage.dart';
 import 'package:foodorder/widgets/customtext.dart';
+import 'package:foodorder/widgets/loading.dart';
+import 'package:provider/provider.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 List<ProductModel> productsList = [];
 
-class FeaturedProducts extends StatelessWidget {
+class FeaturedProducts extends StatefulWidget {
+  @override
+  _FeaturedProductsState createState() => _FeaturedProductsState();
+}
+
+class _FeaturedProductsState extends State<FeaturedProducts> {
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    final user = Provider.of<UserProvider>(context);
+
     return Container(
-      height: 240.0,
+      height: 220,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        //  itemCount: productsList.length,
-        itemBuilder: (_, index) {
-          return Padding(
-            padding: EdgeInsets.fromLTRB(12, 14, 16, 12),
-            child: GestureDetector(
-              onTap: () {
-                changeScreen(
-                  context,
-                  DetailPage(
-                      //           products: productsList[index],
-                      ),
-                );
-              },
-              child: Container(
-                height: 220.0,
-                width: 200.0,
-                decoration: BoxDecoration(
-                  color: white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: red,
-                      offset: Offset(15, 5),
-                      blurRadius: 30,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: <Widget>[
-                    FlutterLogo(
-                      size: 50,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          scrollDirection: Axis.horizontal,
+          itemCount: productProvider.products.length,
+          itemBuilder: (_, index) {
+            return Padding(
+                padding: EdgeInsets.fromLTRB(12, 14, 16, 12),
+                child: GestureDetector(
+                  onTap: () {
+                    changeScreen(
+                        _,
+                        DetailPage(
+                          products: productProvider.products[index],
+                        ));
+                  },
+                  child: Container(
+                    height: 220,
+                    width: 200,
+                    decoration: BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey[300],
+                              offset: Offset(-2, -1),
+                              blurRadius: 5),
+                        ]),
+                    child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: CustomText(
-                              //           text: '${productsList[index].name}',
-                              ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: grey,
-                                    offset: Offset(1, 1),
-                                    blurRadius: 4)
-                              ],
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(4),
-                              //            child: productsList[index].wishlist
-                              //               ? Icon(
-                              //                   Icons.favorite,
-                              //                    color: red,
-                              //                    size: 18,
-                              //                  )
-                              //                : Icon(
-                              //                   Icons.favorite_border,
-                              //                   color: red,
-                              //                   size: 18,
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned.fill(
+                                  child: Align(
+                                alignment: Alignment.center,
+                                child: Loading(),
+                              )),
+                              Center(
+                                child: FadeInImage.memoryNetwork(
+                                  placeholder: kTransparentImage,
+                                  image: productProvider.products[index].image,
+                                  height: 126,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                        //)
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Padding(
-                              padding: EdgeInsets.only(left: 8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: CustomText(
-                                //               text: productsList[index].rating.toString(),
-                                color: grey,
-                                size: 14,
+                                text: productProvider.products[index].name ??
+                                    "id null",
                               ),
                             ),
-                            SizedBox(
-                              width: 2,
+                            Padding(
+                              padding: EdgeInsets.all(8),
+                              child: GestureDetector(
+                                onTap: () {
+//                                  setState(() {
+//                                    productProvider.products[index].liked = !productProvider.products[index].liked;
+//                                  });
+//                                  productProvider.likeDislikeProduct(userId: user.userModel.id, product: productProvider.products[index], liked: productProvider.products[index].liked);
+                                },
+                                child: Container(),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: CustomText(
+                                    text: productProvider.products[index].rating
+                                        .toString(),
+                                    color: grey,
+                                    size: 14.0,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: red,
+                                  size: 16,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: red,
+                                  size: 16,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: red,
+                                  size: 16,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: grey,
+                                  size: 16,
+                                ),
+                              ],
                             ),
-                            Icon(
-                              Icons.star,
-                              color: red,
-                              size: 16,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: red,
-                              size: 16,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: red,
-                              size: 16,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: red,
-                              size: 16,
-                            ),
-                            Icon(
-                              Icons.star_border,
-                              color: red,
-                              size: 16,
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: CustomText(
+                                text:
+                                    "\$${productProvider.products[index].price / 100}",
+                                weight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: CustomText(
-                            text: '\$12.99',
-                            weight: FontWeight.bold,
-                          ),
-                        )
                       ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+                    ),
+                  ),
+                ));
+          }),
     );
   }
 }

@@ -9,18 +9,18 @@ class RestaurantModel {
   static const IMAGE = 'image';
   static const POPULAR = 'popular';
 
-  String _id;
+  int _id;
   String _name;
   String _image;
-  String _avgPrice;
-  String _rating;
+  double _avgPrice;
+  double _rating;
   bool _popular;
   int _rates;
 
-  String get id => _id;
+  int get id => _id;
   String get name => _name;
-  String get price => _avgPrice;
-  String get rating => _rating;
+  double get avgPrice => _avgPrice;
+  double get rating => _rating;
   String get image => _image;
   bool get popular => _popular;
   int get rates => _rates;
@@ -29,8 +29,8 @@ class RestaurantModel {
     _id = snapshot.data()[ID];
     _name = snapshot.data()[NAME];
     _image = snapshot.data()[IMAGE];
-    _avgPrice = snapshot.data()[AVG_PRICE];
-    _rating = snapshot.data()[RATING];
+    _avgPrice = snapshot.data()[AVG_PRICE].toDouble();
+    _rating = snapshot.data()[RATING].toDouble();
     _popular = snapshot.data()[POPULAR];
     _rates = snapshot.data()[RATES];
   }
