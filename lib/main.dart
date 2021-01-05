@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodorder/helpers/screencontroller.dart';
 import 'package:foodorder/models/product.dart';
+import 'package:foodorder/providers/appprovider.dart';
 import 'package:foodorder/providers/productprovider.dart';
 import 'package:foodorder/providers/userprovider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,7 @@ void main() async {
         ChangeNotifierProvider.value(value: CategoryProvider.initialize()),
         ChangeNotifierProvider.value(value: RestaurantProvider.initialize()),
         ChangeNotifierProvider.value(value: ProductProvider.initialize()),
+        ChangeNotifierProvider.value(value: AppProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

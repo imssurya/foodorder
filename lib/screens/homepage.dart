@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodorder/helpers/changescreen.dart';
+import 'package:foodorder/providers/appprovider.dart';
 import 'package:foodorder/providers/productprovider.dart';
 import 'package:foodorder/providers/userprovider.dart';
 import 'package:foodorder/providers/categoryprovider.dart';
@@ -12,6 +13,7 @@ import 'package:foodorder/widgets/bottomnavicon.dart';
 import 'package:foodorder/helpers/stylecolor.dart';
 import 'package:foodorder/widgets/customtext.dart';
 import 'package:foodorder/widgets/featureproducts.dart';
+import 'package:foodorder/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:foodorder/widgets/categorypart.dart';
 import 'package:foodorder/widgets/restaurantpart.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     final categoryProvider = Provider.of<CategoryProvider>(context);
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
+    final app = Provider.of<AppProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -52,130 +55,142 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       backgroundColor: white,
-      body: SafeArea(
-        child: ListView(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: black,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 8, left: 8, right: 8, bottom: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: white,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.search,
-                      color: red,
+      body: app.isLoading
+          ? Loading()
+          : SafeArea(
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: black,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
                     ),
-                    title: TextField(
-                      textInputAction: TextInputAction.search,
-                      onSubmitted: (pattern) async {
-                        // app.changeLoading();
-                        // if(app.search == SearchBy.PRODUCTS){
-                        //   await productProvider.search(productName: pattern);
-                        //   changeScreen(context, ProductSearchScreen());
-                        // }else{
-                        //   await restaurantProvider.search(name: pattern);
-                        //   changeScreen(context, RestaurantsSearchScreen());
-                        // }
-                        //  app.changeLoading();
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Find food and restaurant",
-                        border: InputBorder.none,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8, left: 8, right: 8, bottom: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.search,
+                            color: red,
+                          ),
+                          title: TextField(
+                            textInputAction: TextInputAction.search,
+                            onSubmitted: (pattern) async {
+                              // app.changeLoading();
+                              // if(app.search == SearchBy.PRODUCTS){
+                              //   await productProvider.search(productName: pattern);
+                              //   changeScreen(context, ProductSearchScreen());
+                              // }else{
+                              //   await restaurantProvider.search(name: pattern);
+                              //   changeScreen(context, RestaurantsSearchScreen());
+                              // }
+                              //  app.changeLoading();
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Find food and restaurant",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[]),
-            Divider(),
-            Container(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categoryProvider.categories.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () async {
-                      await productProvider.loadProductsByCategory();
-                      changeScreen(
-                          context,
-                          CategoryPage(
-                              categoryModel:
-                                  categoryProvider.categories[index]));
-                    },
-                    child: CategoryPart(
-                      category: categoryProvider.categories[index],
-                    ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  CustomText(
-                    text: "Featured",
-                    size: 20,
-                    color: grey,
-                  ),
-                ],
-              ),
-            ),
-            FeaturedProducts(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  CustomText(
-                    text: "Popular restaurants",
-                    size: 20,
-                    color: grey,
-                  ),
-                ],
-              ),
-            ),
-            Column(
-              children: restaurantProvider.restaurants
-                  .map(
-                    (item) => GestureDetector(
-                      onTap: () async {
-                        changeScreen(
-                          context,
-                          RestaurantPart(
-                            restaurant: item,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[]),
+                  Divider(),
+                  Container(
+                    height: 100,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categoryProvider.categories.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () async {
+                            app.changeLoading();
+                            await productProvider.loadProductsByCategory(
+                                categoryName:
+                                    categoryProvider.categories[index].name);
+                            app.changeLoading();
+                            changeScreen(
+                                context,
+                                CategoryPage(
+                                    categoryModel:
+                                        categoryProvider.categories[index]));
+                          },
+                          child: CategoryPart(
+                            category: categoryProvider.categories[index],
                           ),
                         );
                       },
-                      child: RestaurantPart(
-                        restaurant: item,
-                      ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CustomText(
+                          text: "Featured",
+                          size: 20,
+                          color: grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  FeaturedProducts(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CustomText(
+                          text: "Popular restaurants",
+                          size: 20,
+                          color: grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: restaurantProvider.restaurants
+                        .map(
+                          (item) => GestureDetector(
+                            onTap: () async {
+                              app.changeLoading();
+                              await productProvider.loadProductsByRestaurant(
+                                  restaurantId: item.id);
+                              app.changeLoading();
+
+                              changeScreen(
+                                context,
+                                RestaurantPart(
+                                  restaurant: item,
+                                ),
+                              );
+                              app.changeLoading();
+                            },
+                            child: RestaurantPart(
+                              restaurant: item,
+                            ),
+                          ),
+                        )
+                        .toList(),
                   )
-                  .toList(),
-            )
-          ],
-        ),
-      ),
+                ],
+              ),
+            ),
       // bottomNavigationBar: Container(
       //   height: 70,
       //   color: white,

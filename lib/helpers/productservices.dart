@@ -18,7 +18,7 @@ class ProductServices {
         },
       );
 
-  Future<List<ProductModel>> getProductsByRestaurant({String id}) async =>
+  Future<List<ProductModel>> getProductsByRestaurant({int id}) async =>
       _firestore
           .collection(collection)
           .where("restaurantid", isEqualTo: id)

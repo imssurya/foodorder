@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:foodorder/helpers/productservices.dart';
 import 'package:foodorder/models/product.dart';
@@ -26,7 +24,7 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future loadProductsByRestaurant({String restaurantId}) async {
+  Future loadProductsByRestaurant({int restaurantId}) async {
     productsByRestaurant =
         await _productServices.getProductsByRestaurant(id: restaurantId);
     notifyListeners();

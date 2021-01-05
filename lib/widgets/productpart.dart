@@ -103,8 +103,7 @@ class ProductPart extends StatelessWidget {
                         GestureDetector(
                             onTap: () async {
                               await productProvider.loadProductsByRestaurant(
-                                  restaurantId:
-                                      product.restaurantId.toString());
+                                  restaurantId: product.restaurantId);
                               //   await restaurantProvider.loadSingleRestaurant(retaurantId: product.restaurantId.toString());
                               changeScreen(
                                   context,
